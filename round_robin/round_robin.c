@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "round_robin.h"
 #include "../queue/queue.h"
-#include "../Gnatt.h"
+#include "../Gantt.h"
 
 GanttEntry gantt[1000]; // assuming max 1000 context switches
 int g_index = 0;
