@@ -18,3 +18,6 @@ This project implements core CPU scheduling algorithms such as FCFS, SJF (preemp
 ## Compile and Run
 ```bash
 gcc main.c fcfs/fcfs.c queue/queue.c -o scheduler
+```
+```bash
+./scheduler input.txt
