@@ -13,6 +13,7 @@ This project implements core CPU scheduling algorithms such as FCFS, SJF (preemp
 -  **Min Heap** → SJF, Priority Scheduling  
 -  **Sorting** → To arrange processes by Arrival Time, Burst Time, or Priority  
 -  **File Handling** → Accepts input from an external file
+-  **Gantt Chart** → Added for Round Robin to visualize process flow
 
 ## Compile and Run
 ```bash
