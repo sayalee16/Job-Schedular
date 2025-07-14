@@ -19,7 +19,7 @@ void insertHeap(MinHeap *h, Process p)
     int i = h->size++;
     h->data[i] = p;
 
-    while (i != 0 && h->data[(i - 1) / 2].burst_time > h->data[i].burst_time)
+    while (i != 0 && h->cmp(h->data[i], h->data[(i - 1) / 2]))
     {
         swap(&h->data[i], &h->data[(i - 1) / 2]);
         i = (i - 1) / 2;
@@ -38,9 +38,9 @@ Process extractMin(MinHeap *h)
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        if (left < h->size && h->data[left].burst_time < h->data[smallest].burst_time)
+        if (left < h->size && h->cmp(h->data[left], h->data[smallest]))
             smallest = left;
-        if (right < h->size && h->data[right].burst_time < h->data[smallest].burst_time)
+        if (right < h->size && h->cmp(h->data[right], h->data[smallest]))
             smallest = right;
 
         if (smallest == i)

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "round_robin.h"
-#include "../queue/queue.h"
+#include "../queue/cqueue.h"      // now uses cenqueue and cdequeue
 #include "../Gantt.h"
 
 GanttEntry gantt[1000]; // assuming max 1000 context switches
@@ -29,7 +29,7 @@ void round_robin(Process processes[], int n, int time_quantum)
     // push first process if it has arrived at time 0
     while (index < n && processes[index].arrival_time <= current_time)
     {
-        enqueue(&q, processes[index]);
+        cenqueue(&q, processes[index]);
         index++;
     }
 
@@ -41,13 +41,13 @@ void round_robin(Process processes[], int n, int time_quantum)
             current_time++;
             while (index < n && processes[index].arrival_time <= current_time)
             {
-                enqueue(&q, processes[index]);
+                cenqueue(&q, processes[index]);
                 index++;
             }
             continue;
         }
 
-        Process p = dequeue(&q);
+        Process p = cdequeue(&q);
 
         if (!p.started)
         {
@@ -65,10 +65,10 @@ void round_robin(Process processes[], int n, int time_quantum)
         p.remaining_time -= run_time;
         current_time += run_time;
 
-        // add newly arrived processes during this run
+        // enqueue newly arrived processes
         while (index < n && processes[index].arrival_time <= current_time)
         {
-            enqueue(&q, processes[index]);
+            cenqueue(&q, processes[index]);
             index++;
         }
 
@@ -93,7 +93,7 @@ void round_robin(Process processes[], int n, int time_quantum)
         }
         else
         {
-            enqueue(&q, p); // not finished → reinsert
+            cenqueue(&q, p); // not finished → reinsert
         }
     }
 
